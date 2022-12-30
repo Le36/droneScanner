@@ -2,17 +2,15 @@ package com.example.dronescanner;
 
 import com.example.dronescanner.parser.DataParser;
 import com.example.dronescanner.storage.ViolationBank;
-import com.example.dronescanner.storage.Violator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.SneakyThrows;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 public class ScannerMain {
 
-    private final List<String> violations = new ArrayList<>();
+    private String json;
     private DataParser dataParser = new DataParser();
     private ViolationBank violationBank;
     private NoDroneZone noDroneZone;
@@ -28,10 +26,8 @@ public class ScannerMain {
 
         violationBank.removeExpiredViolations();
 
-        violations.clear();
+        ObjectMapper mapper = new ObjectMapper();
 
-        for (Violator x : violationBank.getBank().values()) {
-            violations.add(x.toString());
-        }
+        json = mapper.writeValueAsString(violationBank.getBank());
     }
 }

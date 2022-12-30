@@ -32,13 +32,12 @@ public class DroneScannerApplication {
 
     @GetMapping("/violations")
     @ResponseBody
-    public List<String> getResponses() {
-        return scannerMain.getViolations();
+    public String getResponses() {
+        return scannerMain.getJson();
     }
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("data", scannerMain.getViolations());
         return "home";
     }
 }
