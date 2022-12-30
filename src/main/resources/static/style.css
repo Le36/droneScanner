@@ -1,0 +1,43 @@
+body {
+    background-color: black;
+    color: lime;
+    font-family: monospace;
+}
+
+pre {
+    background-color: black;
+    color: lime;
+    border: 1px solid lime;
+    padding: 1em;
+    white-space: pre-wrap;
+}
+
+table {
+    border-collapse: collapse;
+    max-width: 1000px;
+    position: absolute;
+    top: 2em;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+caption {
+    text-align: center;
+    color: lime;
+    font-size: 2em;
+}
+
+th, td {
+    border: 1px solid lime;
+    padding: 0.5em;
+    text-align: left;
+}
+
+th {
+    background-color: black;
+    color: lime;
+}
+
+tr:nth-child(odd) {
+    background-color: #101010;
+}
