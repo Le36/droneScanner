@@ -1,8 +1,8 @@
-package com.example.dronescanner;
+package com.example.dronescanner.core;
 
 import com.example.dronescanner.parser.pilot.Pilot;
 import com.example.dronescanner.parser.scanner.Drone;
-import com.example.dronescanner.storage.PilotDataGetter;
+import com.example.dronescanner.parser.pilot.PilotDataParser;
 import com.example.dronescanner.storage.ViolationBank;
 import com.example.dronescanner.storage.Violator;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class NoDroneZone {
 
     private final ViolationBank violationBank;
-    private final PilotDataGetter pilotDataGetter = new PilotDataGetter();
+    private final PilotDataParser pilotDataParser = new PilotDataParser();
 
     public NoDroneZone(ViolationBank violationBank) {
         this.violationBank = violationBank;
@@ -33,7 +33,7 @@ public class NoDroneZone {
             double distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 
             if (distance <= radius) {
-                Pilot pilot = pilotDataGetter.GetPilotData(drone.getSerialNumber());
+                Pilot pilot = pilotDataParser.GetPilotData(drone.getSerialNumber());
 
                 if (pilot == null) return; // if 404 etc.
 

@@ -1,4 +1,4 @@
-package com.example.dronescanner;
+package com.example.dronescanner.core;
 
 import com.example.dronescanner.parser.DataParser;
 import com.example.dronescanner.parser.scanner.Report;

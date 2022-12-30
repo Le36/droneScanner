@@ -1,11 +1,10 @@
-package com.example.dronescanner.storage;
+package com.example.dronescanner.parser.pilot;
 
 import com.example.dronescanner.parser.DataParser;
-import com.example.dronescanner.parser.pilot.Pilot;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.client.RestTemplate;
 
-public class PilotDataGetter {
+public class PilotDataParser {
 
     private final DataParser dataParser = new DataParser();
 

@@ -1,5 +1,6 @@
 package com.example.dronescanner;
 
+import com.example.dronescanner.core.ScannerMain;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
