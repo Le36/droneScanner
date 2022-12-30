@@ -10,19 +10,33 @@
                     tableRows[i].remove();
                 }
 
+                const pilots = [];
                 for (const pilotId in response.data) {
                     const pilotData = response.data[pilotId];
+                    pilots.push({
+                        firstName: pilotData.pilot.firstName,
+                        lastName: pilotData.pilot.lastName,
+                        phoneNumber: pilotData.pilot.phoneNumber,
+                        email: pilotData.pilot.email,
+                        distance: pilotData.distance,
+                        time: pilotData.time
+                    });
+                }
+
+                pilots.sort((a, b) => a.time - b.time);
+
+                pilots.forEach(pilotData => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                          <td>${pilotData.pilot.pilotId}</td>
-                          <td>${pilotData.pilot.firstName}</td>
-                          <td>${pilotData.pilot.lastName}</td>
-                          <td>${pilotData.pilot.phoneNumber}</td>
-                          <td>${pilotData.pilot.email}</td>
-                          <td>${Math.round(pilotData.distance) + "m"}</td>
-                          <td>${new Date(pilotData.time).toLocaleTimeString()}</td>`;
+                      <td>${pilotData.firstName}</td>
+                      <td>${pilotData.lastName}</td>
+                      <td>${pilotData.phoneNumber}</td>
+                      <td>${pilotData.email}</td>
+                      <td>${(pilotData.distance / 1000).toFixed(2) + "m"}</td>
+                      <td>${new Date(pilotData.time).toLocaleTimeString()}</td>
+                    `;
                     document.querySelector('#pilotTable').appendChild(row);
-                }
+                });
             });
         };
 
@@ -37,13 +51,12 @@
 <body>
 <table id="pilotTable">
     <tr>
-        <th>Pilot ID</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Phone Number</th>
         <th>Email</th>
-        <th>Distance</th>
-        <th>Time</th>
+        <th>Closest Distance</th>
+        <th>Last Seen</th>
     </tr>
 </table>
 </body>
