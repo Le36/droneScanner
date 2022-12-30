@@ -1,11 +1,50 @@
 <html lang="">
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+    <script>
+        const refreshTable = () => {
+            axios.get('/violations').then(response => {
+
+                const tableRows = document.querySelectorAll('#pilotTable tr');
+                for (let i = 1; i < tableRows.length; i++) {
+                    tableRows[i].remove();
+                }
+
+                for (const pilotId in response.data) {
+                    const pilotData = response.data[pilotId];
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                          <td>${pilotData.pilot.pilotId}</td>
+                          <td>${pilotData.pilot.firstName}</td>
+                          <td>${pilotData.pilot.lastName}</td>
+                          <td>${pilotData.pilot.phoneNumber}</td>
+                          <td>${pilotData.pilot.email}</td>
+                          <td>${Math.round(pilotData.distance) + "m"}</td>
+                          <td>${new Date(pilotData.time).toLocaleTimeString()}</td>`;
+                    document.querySelector('#pilotTable').appendChild(row);
+                }
+            });
+        };
+
+        window.addEventListener('load', () => {
+            setInterval(refreshTable, 2000);
+
+            refreshTable();
+        });
+    </script>
     <title>Drones</title>
 </head>
 <body>
-<h1>Drones</h1>
-<ul>
-    <li th:each="item : ${data}" th:text="${item}"></li>
-</ul>
+<table id="pilotTable">
+    <tr>
+        <th>Pilot ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Distance</th>
+        <th>Time</th>
+    </tr>
+</table>
 </body>
 </html>
