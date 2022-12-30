@@ -23,7 +23,7 @@ public class DroneScannerApplication {
     }
 
     @Scheduled(fixedRate = 2000)
-    public void listen() throws Exception {
+    public void listen() {
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject("https://assignments.reaktor.com/birdnest/drones", String.class);
         scannerMain.handle(response);

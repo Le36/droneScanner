@@ -1,16 +1,18 @@
 <html lang="">
 <head>
     <link rel="stylesheet" href="/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+    <script src="/axios.min.js"></script>
     <script>
         const refreshTable = () => {
             axios.get('/violations').then(response => {
 
+                // clear table before append
                 const tableRows = document.querySelectorAll('#pilotTable tr');
                 for (let i = 1; i < tableRows.length; i++) {
                     tableRows[i].remove();
                 }
 
+                // format for easy sort
                 const pilots = [];
                 for (const pilotId in response.data) {
                     const pilotData = response.data[pilotId];
@@ -47,7 +49,7 @@
             refreshTable();
         });
     </script>
-    <title>Drones</title>
+    <title>NDZ Violators</title>
 </head>
 <body>
 <table id="pilotTable">

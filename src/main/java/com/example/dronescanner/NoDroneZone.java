@@ -19,35 +19,30 @@ public class NoDroneZone {
     }
 
     public void checkIfIllegalArea(List<Drone> drones) {
-        for (Drone x : drones) {
-            this.calculateIfInside(x);
-        }
-    }
+        for (Drone drone : drones) {
+            // position of the drone
+            double x1 = drone.getPositionX();
+            double y1 = drone.getPositionY();
 
-    private void calculateIfInside(Drone drone) {
-        // position of the drone
-        double x1 = drone.getPositionX();
-        double y1 = drone.getPositionY();
+            // position of the center
+            double x2 = 250000.0;
+            double y2 = 250000.0;
 
-        // position of the center
-        double x2 = 250000.0;
-        double y2 = 250000.0;
+            double radius = 100000.0; // violation zone
 
-        double radius = 100000.0;
+            double distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 
-        double distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            if (distance <= radius) {
+                Pilot pilot = pilotDataGetter.GetPilotData(drone.getSerialNumber());
 
-        if (distance <= radius) {
-            Pilot pilot = pilotDataGetter.GetPilotData(drone.getSerialNumber());
-            if (pilot == null) return; // 404 etc.
+                if (pilot == null) return; // if 404 etc.
 
-            double oldDistance = 200000.0;
-
-            if (violationBank.getBank().containsKey(pilot.getPilotId())) {
-                oldDistance = violationBank.getBank().get(pilot.getPilotId()).getDistance();
+                double oldDistance = 200000.0;
+                if (violationBank.getBank().containsKey(pilot.getPilotId())) {
+                    oldDistance = violationBank.getBank().get(pilot.getPilotId()).getDistance();
+                }
+                violationBank.insert(new Violator(pilot, Math.min(distance, oldDistance)));
             }
-
-            violationBank.insert(new Violator(pilot, Math.min(distance, oldDistance)));
         }
     }
 }
