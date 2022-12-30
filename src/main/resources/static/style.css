@@ -25,6 +25,7 @@ caption {
     text-align: center;
     color: lime;
     font-size: 2em;
+    padding: 10px;
 }
 
 th, td {

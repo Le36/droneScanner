@@ -26,7 +26,7 @@
                     });
                 }
 
-                pilots.sort((a, b) => a.time - b.time);
+                pilots.sort((a, b) => b.time - a.time);
 
                 pilots.forEach(pilotData => {
                     const row = document.createElement('tr');
