@@ -13,7 +13,7 @@ public class PilotDataGetter {
         try {
             RestTemplate restTemplate = new RestTemplate();
             String response = restTemplate.getForObject("https://assignments.reaktor.com/birdnest/pilots/" + id, String.class);
-            return dataParser.parseJson(response);
+            return dataParser.parsePilot(response);
         } catch (JsonProcessingException e) {
             return null;
         }

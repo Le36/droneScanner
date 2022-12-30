@@ -12,14 +12,12 @@ public class DataParser {
 
     private final ObjectMapper mapperXml = new XmlMapper();
     private final ObjectMapper mapperJson = new ObjectMapper();
-    Report report;
-    Pilot pilot;
 
-    public void parseXml(String xml) throws JsonProcessingException {
-        report = mapperXml.readValue(xml, Report.class);
+    public Report parseReport(String xml) throws JsonProcessingException {
+        return mapperXml.readValue(xml, Report.class);
     }
 
-    public Pilot parseJson(String json) throws JsonProcessingException {
+    public Pilot parsePilot(String json) throws JsonProcessingException {
         return mapperJson.readValue(json, Pilot.class);
     }
 }

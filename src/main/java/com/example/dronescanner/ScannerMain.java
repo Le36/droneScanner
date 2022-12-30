@@ -24,9 +24,7 @@ public class ScannerMain {
 
     @SneakyThrows
     public void handle(String xml) {
-        dataParser.parseXml(xml);
-
-        noDroneZone.checkIfIllegalArea(dataParser.getReport().getCapture().getDrone());
+        noDroneZone.checkIfIllegalArea(dataParser.parseReport(xml).getCapture().getDrone());
 
         violationBank.removeExpiredViolations();
 
