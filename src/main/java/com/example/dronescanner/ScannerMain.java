@@ -2,6 +2,7 @@ package com.example.dronescanner;
 
 import com.example.dronescanner.parser.DataParser;
 import com.example.dronescanner.storage.ViolationBank;
+import com.example.dronescanner.storage.Violator;
 import lombok.Data;
 import lombok.SneakyThrows;
 
@@ -29,6 +30,10 @@ public class ScannerMain {
 
         violationBank.removeExpiredViolations();
 
-        violations.add(violationBank.getBank().toString());
+        violations.clear();
+
+        for (Violator x : violationBank.getBank().values()) {
+            violations.add(x.toString());
+        }
     }
 }

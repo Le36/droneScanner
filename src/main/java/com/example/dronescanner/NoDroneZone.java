@@ -4,6 +4,7 @@ import com.example.dronescanner.parser.pilot.Pilot;
 import com.example.dronescanner.parser.scanner.Drone;
 import com.example.dronescanner.storage.PilotDataGetter;
 import com.example.dronescanner.storage.ViolationBank;
+import com.example.dronescanner.storage.Violator;
 
 import java.lang.Math;
 import java.util.List;
@@ -39,8 +40,14 @@ public class NoDroneZone {
         if (distance <= radius) {
             Pilot pilot = pilotDataGetter.GetPilotData(drone.getSerialNumber());
             if (pilot == null) return; // 404 etc.
-            violationBank.insert(pilot);
-            System.out.println("added to bank+   " + drone);
+
+            double oldDistance = 200000.0;
+
+            if (violationBank.getBank().containsKey(pilot.getPilotId())) {
+                oldDistance = violationBank.getBank().get(pilot.getPilotId()).getDistance();
+            }
+
+            violationBank.insert(new Violator(pilot, Math.min(distance, oldDistance)));
         }
     }
 }
